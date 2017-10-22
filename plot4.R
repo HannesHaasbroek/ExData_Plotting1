@@ -7,13 +7,15 @@
 
 #download files if it does not exist 
 if(!file.exists("exdata_data_household_power_consumption.zip")){
-  download.file("http://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip","./exdata_data_household_power_consumption.zip")
+  download.file("http://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+                ,"./exdata_data_household_power_consumption.zip")
 }
 
 
 #unzips file if it does not exist
 if(!file.exists("exdata_data_household_power_consumption/household_power_consumption.txt")){
-  unzip(zipfile = "exdata_data_household_power_consumption.zip",exdir = "exdata_data_household_power_consumption")
+  unzip(zipfile = "exdata_data_household_power_consumption.zip"
+        ,exdir = "exdata_data_household_power_consumption")
 }
 
 #checks if data3 exists in global enviroment if not imports data and creates data3
@@ -21,7 +23,8 @@ if(!file.exists("exdata_data_household_power_consumption/household_power_consump
 #please remove it before running this
 if(!("data3" %in% ls())){
   #imports data
-  data=read.csv("exdata_data_household_power_consumption/household_power_consumption.txt",sep = ";",na.strings = '?')
+  data=read.csv("exdata_data_household_power_consumption/household_power_consumption.txt",sep = ";"
+                ,na.strings = '?')
   #adds variable Date2 that is the Date in a date format
   data$Date2=as.Date.character(as.character(data$Date),format="%d/%m/%Y")
   #make new data set containing only data for  01/02/2007 and 02/02/2007
@@ -54,7 +57,8 @@ with(data3,plot(Time2,Global_active_power,ylab="Global Active Power",xlab='',typ
 with(data3,plot(Time2,Sub_metering_1,ylab="Energy sub metering",xlab='',type="l",col="black"))
 with(data3,lines(Time2,Sub_metering_2,col="red"))
 with(data3,lines(Time2,Sub_metering_3,col="blue"))
-legend("topright",lty=1,col=c("black","red","blue"),legend = c("Sub_metering_1","Sub_metering_1","Sub_metering_3"),bty="n")
+legend("topright",lty=1,col=c("black","red","blue")
+       ,legend = c("Sub_metering_1","Sub_metering_1","Sub_metering_3"),bty="n")
 
 with(data3,plot(Time2,Voltage,xlab='datetime',type="l"))
 
