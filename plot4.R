@@ -5,8 +5,14 @@
 # and create a png plot
 # created 22-10-2017
 
+#download files if it does not exist 
+if(!file.exists("exdata_data_household_power_consumption.zip")){
+  download.file("http://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip","./exdata_2Fdata_2Fhousehold_power_consumption.zip")
+}
+
+
 #unzips file if it does not exist
-if(!file.exists("dataset/exdata_data_household_power_consumption/household_power_consumption.txt")){
+if(!file.exists("exdata_data_household_power_consumption/household_power_consumption.txt")){
   unzip(zipfile = "exdata_data_household_power_consumption.zip",exdir = "exdata_data_household_power_consumption")
 }
 
@@ -15,7 +21,7 @@ if(!file.exists("dataset/exdata_data_household_power_consumption/household_power
 #please remove it before running this
 if(!("data3" %in% ls())){
   #imports data
-  data=read.csv("exdata_data_household_power_consumption/household_power_consumption.txt",sep = ";")
+  data=read.csv("exdata_data_household_power_consumption/household_power_consumption.txt",sep = ";",na.strings = '?')
   #adds variable Date2 that is the Date in a date format
   data$Date2=as.Date.character(as.character(data$Date),format="%d/%m/%Y")
   #make new data set containing only data for  01/02/2007 and 02/02/2007
@@ -27,31 +33,14 @@ if(!("data3" %in% ls())){
   #adds a variable Time2 that is a date tiem variable based on Date and Time variables
   data2$Time2=strptime(paste(as.character(data2$Date),as.character(data2$Time)),"%d/%m/%Y %T")
   #makes a new data set for futher clean up
-  #replaces all "?" in variables of intrest with NA values
-  data3=data2
-  data3$Global_active_power[data3$Global_active_power=='?']=NA    
-  data3$Global_reactive_power[data3$Global_reactive_power=='?']=NA 
-  data3$Voltage[data3$Voltage=='?']=NA 
-  data3$Global_intensity[data3$Global_intensity=='?']=NA 
-  data3$Sub_metering_1[data3$Sub_metering_1=='?']=NA 
-  data3$Sub_metering_2[data3$Sub_metering_2=='?']=NA 
-  data3$Sub_metering_3[data3$Sub_metering_3=='?']=NA
-  #Cahnges the variables of intrest that were factors at first to characters and then numeric
-  data3$Global_active_power=as.numeric(as.character(data3$Global_active_power))
-  data3$Global_reactive_power=as.numeric(as.character(data3$Global_reactive_power))
-  data3$Voltage=as.numeric(as.character(data3$Voltage))
-  data3$Global_intensity=as.numeric(as.character(data3$Global_intensity))
-  data3$Sub_metering_1=as.numeric(as.character(data3$Sub_metering_1))
-  data3$Sub_metering_2=as.numeric(as.character(data3$Sub_metering_2))
-  data3$Sub_metering_3=as.numeric(as.character(data3$Sub_metering_3))
-  #cleans up the data set data2
+  data3=data2  #cleans up the data set data2
   rm(data2)
 }
 
 
 #crates plot4.png
 #open png graphics device
-png(filename = "plot2.png"
+png(filename = "plot4.png"
     ,width = 480
     ,height=480
     ,units = "px")
