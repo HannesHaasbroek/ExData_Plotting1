@@ -7,7 +7,7 @@
 
 #download files if it does not exist 
 if(!file.exists("exdata_data_household_power_consumption.zip")){
-  download.file("http://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip" ,"./exdata_Fdata_Fhousehold_power_consumption.zip")
+  download.file("http://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip" ,"./exdata_data_household_power_consumption.zip")
 }
 
 
